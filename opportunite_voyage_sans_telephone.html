@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dossier — Voyage Sans Téléphone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #F5EFE0;
+      --paper:   #FBF7EE;
+      --navy:    #1C2B4A;
+      --red:     #8C2530;
+      --gold:    #B8882E;
+      --muted:   #7A7060;
+      --ink:     #2C2420;
+      --border:  #D9CEB8;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 48px 24px 80px;
+    }
+
+    .page {
+      max-width: 820px;
+      margin: 0 auto;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      padding: 56px 64px;
+      position: relative;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 2px solid var(--navy);
+    }
+
+    .header-left h1 {
+      font-family: 'EB Garamond', serif;
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+
+    .header-left .sub {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .stamp {
+      width: 90px;
+      height: 90px;
+      border: 3px solid var(--red);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px;
+      flex-shrink: 0;
+      transform: rotate(12deg);
+    }
+
+    .stamp span {
+      font-family: 'Courier Prime', monospace;
+      font-size: 8px;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+
+    .stamp .icon {
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+
+    /* ── PITCH ── */
+    .pitch {
+      background: var(--navy);
+      color: #fff;
+      padding: 28px 32px;
+      margin-bottom: 40px;
+    }
+
+    .pitch p {
+      font-family: 'EB Garamond', serif;
+      font-size: 20px;
+      font-style: italic;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    .pitch .signal {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-style: normal;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    /* ── SECTION TITLES ── */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    /* ── MODES ── */
+    .modes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .mode-card {
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      position: relative;
+    }
+
+    .mode-card.featured {
+      border-color: var(--gold);
+      background: #FDF9F0;
+    }
+
+    .mode-badge {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .mode-card.featured .mode-badge {
+      color: var(--gold);
+    }
+
+    .mode-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .mode-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .mode-flow {
+      list-style: none;
+    }
+
+    .mode-flow li {
+      font-size: 12px;
+      color: var(--ink);
+      padding: 4px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .mode-flow li::before {
+      content: '→';
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .mode-note {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+      font-size: 11px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ── TIERS ── */
+    .tiers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .tier-card {
+      border: 1px solid var(--border);
+      padding: 24px;
+    }
+
+    .tier-card.premium {
+      border-color: var(--navy);
+      background: #F5F0E8;
+    }
+
+    .tier-price {
+      font-family: 'EB Garamond', serif;
+      font-size: 38px;
+      font-weight: 500;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .tier-name {
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tier-card.premium .tier-name {
+      color: var(--gold);
+      border-color: var(--navy);
+    }
+
+    .tier-includes {
+      list-style: none;
+    }
+
+    .tier-includes li {
+      font-size: 13px;
+      padding: 5px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .tier-includes li:last-child { border-bottom: none; }
+
+    .tier-includes li .check {
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .tier-margin {
+      margin-top: 16px;
+      padding: 10px 14px;
+      background: var(--cream);
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      color: var(--navy);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .tier-card.premium .tier-margin {
+      background: rgba(28,43,74,0.08);
+    }
+
+    /* ── KIT CONTENTS ── */
+    .kit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .kit-item {
+      padding: 10px 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+
+    .kit-item:nth-child(even) { border-right: none; }
+    .kit-item:nth-last-child(-n+2) { border-bottom: none; }
+
+    .kit-num {
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .kit-text strong {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      display: block;
+    }
+
+    .kit-text span {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ── UNIT ECONOMICS ── */
+    .econ-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .econ-cell {
+      padding: 18px 20px;
+      border-right: 1px solid var(--border);
+    }
+
+    .econ-cell:last-child { border-right: none; }
+
+    .econ-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .econ-val {
+      font-family: 'EB Garamond', serif;
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--navy);
+      line-height: 1;
+    }
+
+    .econ-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .milestones {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .milestone-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .milestone-row:last-child { border-bottom: none; }
+    .milestone-row.header-row { background: var(--navy); }
+
+    .milestone-cell {
+      padding: 10px 14px;
+      font-size: 12px;
+      border-right: 1px solid var(--border);
+    }
+
+    .milestone-cell:last-child { border-right: none; }
+
+    .milestone-row.header-row .milestone-cell {
+      font-family: 'Courier Prime', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      border-right-color: rgba(255,255,255,0.1);
+    }
+
+    .milestone-cell.target {
+      font-family: 'EB Garamond', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    /* ── MARKET SIGNALS ── */
+    .signals {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .signal-card {
+      padding: 16px;
+      border-left: 3px solid var(--gold);
+      background: #FAF5E8;
+    }
+
+    .signal-stat {
+      font-family: 'EB Garamond', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .signal-desc {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-note {
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .advantage {
+      background: var(--cream);
+      border: 1px dashed var(--border);
+      padding: 16px 20px;
+      margin-top: 16px;
+    }
+
+    .advantage p {
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    .advantage strong { color: var(--navy); }
+
+    @media (max-width: 680px) {
+      .page { padding: 32px 24px; }
+      .modes, .tiers, .econ-grid, .signals { grid-template-columns: 1fr; }
+      .kit-grid { grid-template-columns: 1fr; }
+      .kit-item { border-right: none; }
+      .milestone-row { grid-template-columns: 100px 1fr 1fr; }
+      .milestone-cell.hide-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="sub">Dossier interne · Juin 2026</div>
+      <h1>Voyage Sans<br>Téléphone</h1>
+      <div class="sub" style="margin-top:12px">Kit physique livré à domicile · Marché US</div>
+    </div>
+    <div class="stamp">
+      <span class="icon">✈</span>
+      <span>SANS<br>ÉCRAN<br>— US —</span>
+    </div>
+  </div>
+
+  <!-- PITCH -->
+  <div class="pitch">
+    <div class="signal">Le concept</div>
+    <p>Tu pars en voyage sans téléphone. On t'envoie chez toi, avant ton départ, une enveloppe contenant tout ce dont tu as besoin : billets imprimés, carte, itinéraire jour par jour, restaurants, activités, instructions de navigation, numéros d'urgence, lexique de survie et appareil photo jetable. Tu arrives à destination. Tu n'as besoin de rien d'autre.</p>
+  </div>
+
+  <!-- DEUX MODES -->
+  <div class="section">
+    <div class="section-title">Les deux modes d'utilisation</div>
+    <div class="modes">
+
+      <div class="mode-card">
+        <div class="mode-badge">Mode A — Self-serve</div>
+        <div class="mode-title">Tu as déjà tes billets.<br>On fait le reste.</div>
+        <div class="mode-desc">Le client a déjà réservé son vol, son hôtel, ses activités. Il nous uploade ses confirmations. L'IA génère le dossier complet. On imprime, on assemble, on expédie.</div>
+        <ul class="mode-flow">
+          <li>Client uploade ses billets et confirmations</li>
+          <li>Il précise ses dates, préférences, activités voulues</li>
+          <li>L'IA génère l'itinéraire personnalisé + contenu</li>
+          <li>Kit imprimé et expédié 5 jours avant le départ</li>
+        </ul>
+        <div class="mode-note">Zéro régulation · Zéro flux financier complexe · Pur produit</div>
+      </div>
+
+      <div class="mode-card featured">
+        <div class="mode-badge">Mode B — Full service</div>
+        <div class="mode-title">Tu nous dis ce que tu veux.<br>On gère tout.</div>
+        <div class="mode-desc">Le client nous dit sa destination, ses dates, son budget. On trouve les billets, on réserve l'hôtel, on achète les activités. Il paie en une seule fois. On livre le kit + les confirmations.</div>
+        <ul class="mode-flow">
+          <li>Client configure son voyage sur le site</li>
+          <li>On présente les options en live (SNCF, Air France…)</li>
+          <li>Il valide et paie en un seul virement</li>
+          <li>On achète immédiatement (max 10 min) + on produit le kit</li>
+          <li>Expédition 5 jours avant le départ</li>
+        </ul>
+        <div class="mode-note">Markup intégré au prix global · Le client ne voit pas nos marges · Modèle agence modernisé avec IA</div>
+      </div>
+
+    </div>
+
+    <div class="advantage">
+      <p><strong>Avantage clé du Mode B :</strong> le prix du kit est noyé dans le prix total du voyage. Le client ne paie pas "$149 pour un livret imprimé" — il paie "$890 pour son voyage à Lisbonne, clé en main". Notre marge de service est invisible. Même principe que les tour-opérateurs.</p>
+    </div>
+  </div>
+
+  <!-- DEUX TIERS -->
+  <div class="section">
+    <div class="section-title">Les deux tiers de produit</div>
+    <div class="tiers">
+
+      <div class="tier-card">
+        <div class="tier-price">$99</div>
+        <div class="tier-name">Livret Experience</div>
+        <ul class="tier-includes">
+          <li><span class="check">✓</span> Livret imprimé façon dossier de voyage (30 pages, couleur)</li>
+          <li><span class="check">✓</span> Carte papier de la destination</li>
+          <li><span class="check">✓</span> Itinéraire jour par jour + navigation micro</li>
+          <li><span class="check">✓</span> Sélection restaurants + activités</li>
+          <li><span class="check">✓</span> Numéros d'urgence + guide "si ça tourne mal"</li>
+          <li><span class="check">✓</span> Mot personnel + manifeste voyage sans téléphone</li>
+        </ul>
+        <div class="tier-margin">
+          <span>Coût de revient</span>
+          <span>~$31</span>
+        </div>
+        <div class="tier-margin" style="margin-top:1px">
+          <span>Marge brute</span>
+          <span style="color:#1C2B4A;font-weight:700">$68 · 69%</span>
+        </div>
+      </div>
+
+      <div class="tier-card premium">
+        <div class="tier-price">$249</div>
+        <div class="tier-name">Pack Complet — Recommended</div>
+        <ul class="tier-includes">
+          <li><span class="check">✓</span> Tout le Livret Experience</li>
+          <li><span class="check">✓</span> Dumbphone (Nokia basique) pour les urgences uniquement</li>
+          <li><span class="check">✓</span> Appareil photo jetable (Fujifilm 27 poses)</li>
+          <li><span class="check">✓</span> Packaging premium (boîte rigide avec ruban)</li>
+          <li><span class="check">✓</span> Espaces photo dans le livret (coller ses souvenirs)</li>
+          <li><span class="check">✓</span> Enveloppe cadeau (format gift idéal)</li>
+        </ul>
+        <div class="tier-margin">
+          <span>Coût de revient</span>
+          <span>~$94</span>
+        </div>
+        <div class="tier-margin" style="margin-top:1px">
+          <span>Marge brute</span>
+          <span style="font-weight:700">$155 · 62%</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- KIT CONTENTS -->
+  <div class="section">
+    <div class="section-title">Contenu du kit — ce qui remplace le téléphone</div>
+    <div class="kit-grid">
+
+      <div class="kit-item">
+        <span class="kit-num">01</span>
+        <div class="kit-text">
+          <strong>Billets & confirmations imprimés</strong>
+          <span>Vol, train, hôtel, activités réservées — tout dans une pochette plastique</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">02</span>
+        <div class="kit-text">
+          <strong>Carte générale de la destination</strong>
+          <span>Achetée en amont, adaptée à la région et à la durée du séjour</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">03</span>
+        <div class="kit-text">
+          <strong>Navigation micro (porte à porte)</strong>
+          <span>Gare → hôtel, hôtel → restaurant, étape par étape sans GPS</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">04</span>
+        <div class="kit-text">
+          <strong>Guide transport local</strong>
+          <span>Métro, bus, taxi, comment payer, quels tickets acheter</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">05</span>
+        <div class="kit-text">
+          <strong>Itinéraire jour par jour</strong>
+          <span>Horaires suggérés, rythme, timing visites avec marge de liberté</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">06</span>
+        <div class="kit-text">
+          <strong>Restaurants sélectionnés</strong>
+          <span>3 options par repas, adresse, horaires, ce qu'il faut commander</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">07</span>
+        <div class="kit-text">
+          <strong>Activités & attractions</strong>
+          <span>Horaires, prix, jours de fermeture, conseil d'accès sans file</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">08</span>
+        <div class="kit-text">
+          <strong>Plans B pour chaque recommandation</strong>
+          <span>Restaurant complet ? Musée fermé ? Une alternative à côté de chaque option</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">09</span>
+        <div class="kit-text">
+          <strong>Guide monnaie & paiement</strong>
+          <span>Taux de change, carte vs cash, où trouver un distributeur</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">10</span>
+        <div class="kit-text">
+          <strong>Lexique de survie phonétique</strong>
+          <span>15 phrases essentielles translittérées pour voyages internationaux</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">11</span>
+        <div class="kit-text">
+          <strong>Numéros d'urgence & guide "si ça tourne mal"</strong>
+          <span>Ambassade, hôpital, assurance voyage, taxi local, que faire si…</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">12</span>
+        <div class="kit-text">
+          <strong>Météo & conseils pratiques J par J</strong>
+          <span>Générés à J-2 avant expédition, avec what to wear et tips du moment</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">13</span>
+        <div class="kit-text">
+          <strong>Mot personnel + manifeste</strong>
+          <span>"Pourquoi vous faites ça, comment en profiter" — l'âme du produit</span>
+        </div>
+      </div>
+
+      <div class="kit-item">
+        <span class="kit-num">14</span>
+        <div class="kit-text">
+          <strong>Espaces photo dans le livret</strong>
+          <span>Pour coller les photos du jetable — le livret devient un carnet de voyage</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- UNIT ECONOMICS -->
+  <div class="section">
+    <div class="section-title">Unit economics</div>
+
+    <div class="econ-grid">
+      <div class="econ-cell">
+        <div class="econ-label">Revenue / transaction (blended)</div>
+        <div class="econ-val">$480</div>
+        <div class="econ-sub">Kit + markup voyage Mode B</div>
+      </div>
+      <div class="econ-cell">
+        <div class="econ-label">Marge brute / transaction</div>
+        <div class="econ-val">$340</div>
+        <div class="econ-sub">~71% — avant CAC et structure</div>
+      </div>
+      <div class="econ-cell" style="border-right:none">
+        <div class="econ-label">Kit seul — Mode A</div>
+        <div class="econ-val">$155</div>
+        <div class="econ-sub">Pack Complet · 62% de marge</div>
+      </div>
+    </div>
+
+    <div class="milestones">
+      <div class="milestone-row header-row">
+        <div class="milestone-cell">Objectif</div>
+        <div class="milestone-cell">Transactions / an</div>
+        <div class="milestone-cell">Transactions / mois</div>
+        <div class="milestone-cell hide-mobile">Commentaire</div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-cell target">$100k marge</div>
+        <div class="milestone-cell">294 / an</div>
+        <div class="milestone-cell">~25 / mois</div>
+        <div class="milestone-cell hide-mobile" style="font-size:11px;color:#7A7060">Solo opérable · Pas de levée nécessaire</div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-cell target">$1M marge</div>
+        <div class="milestone-cell">2 941 / an</div>
+        <div class="milestone-cell">~245 / mois</div>
+        <div class="milestone-cell hide-mobile" style="font-size:11px;color:#7A7060">Petite équipe · Fulfillment US externalisé</div>
+      </div>
+      <div class="milestone-row">
+        <div class="milestone-cell target">$10M marge</div>
+        <div class="milestone-cell">29 412 / an</div>
+        <div class="milestone-cell">~2 450 / mois</div>
+        <div class="milestone-cell hide-mobile" style="font-size:11px;color:#7A7060">Machine marketing · Booking automatisé via API</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARKET SIGNALS -->
+  <div class="section">
+    <div class="section-title">Signaux de marché US</div>
+    <div class="signals">
+      <div class="signal-card">
+        <div class="signal-stat">+50%</div>
+        <div class="signal-desc">Hausse de l'intérêt de recherche pour "digital detox retreats" (Vogue, juin 2025)</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-stat">17%</div>
+        <div class="signal-desc">Des voyageurs US cherchent activement des séjours qui forcent la déconnexion (Hilton Trends 2025)</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-stat">+567%</div>
+        <div class="signal-desc">Croissance des événements phone-free en 2024-2025 (Eventbrite). Tendance de fond validée.</div>
+      </div>
+    </div>
+    <div class="advantage" style="margin-top:16px">
+      <p><strong>Ce que tous les concurrents (Layla AI, Mindtrip, Wonderplan) ont en commun :</strong> ils nécessitent une connexion internet permanente et rendent le téléphone encore plus central dans le voyage. On fait exactement l'inverse. L'IA est notre outil de production — pas notre produit.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-note">DOSSIER CONFIDENTIEL · NV · Juin 2026</div>
+    <div class="footer-note">Produit testé sur marché US · Delaware LLC</div>
+  </div>
+
+</div>
+</body>
+</html>
